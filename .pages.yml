@@ -1,1 +1,11 @@
-Settings
+content:
+  - name: pages
+    label: Pages
+    folder: content/pages
+    fields:
+      - name: title
+        label: Titre
+        type: string
+      - name: body
+        label: Contenu
+        type: markdown
