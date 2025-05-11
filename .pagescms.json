@@ -1,0 +1,21 @@
+{
+    "folders": [
+      {
+        "path": "content/pages",
+        "name": "Pages",
+        "type": "markdown",
+        "fields": [
+          {
+            "name": "title",
+            "label": "Titre",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "label": "Contenu",
+            "type": "markdown"
+          }
+        ]
+      }
+    ]
+  }
