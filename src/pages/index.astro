@@ -1,16 +1,23 @@
 ---
+import fs from 'fs';
+import matter from 'gray-matter';
 
+// Lire le contenu de la page d'accueil
+const file = fs.readFileSync('./content/pages/accueil.md', 'utf-8');
+const { data, content } = matter(file);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{data.title}</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>{data.title}</h1>
+      <article>
+        {content}
+      </article>
+    </main>
+  </body>
 </html>
