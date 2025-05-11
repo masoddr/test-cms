@@ -1,23 +1,139 @@
 ---
-import fs from 'fs';
-import matter from 'gray-matter';
-
-// Lire le contenu de la page d'accueil
-const file = fs.readFileSync('./content/pages/accueil.md', 'utf-8');
-const { data, content } = matter(file);
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{data.title}</title>
-  </head>
-  <body>
-    <main class="container">
-      <h1>{data.title}</h1>
-      <article>
-        {content}
-      </article>
-    </main>
-  </body>
-</html>
+<Layout title="Benvenuti da Trattoria Bella!">
+  <header class="navbar">
+    <div class="logo">Trattoria Bella</div>
+    <nav>
+      <a href="#">Menu</a>
+      <a href="#">Réserver</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <main class="landing">
+    <section class="landing-content">
+      <h1>Le meilleur de l'Italie dans votre assiette</h1>
+      <p>
+        Découvrez notre cuisine authentique, préparée avec passion et des ingrédients frais. 
+        Réservez votre table et vivez une expérience italienne inoubliable !
+      </p>
+      <a class="cta-btn" href="#">Voir le menu</a>
+    </section>
+    <section class="landing-image">
+      <img src="/images/plat-italien.jpg" alt="Plat italien appétissant" />
+    </section>
+  </main>
+  <footer class="footer">
+    <a href="#"><img src="/icons/facebook.svg" alt="Facebook" /></a>
+    <a href="#"><img src="/icons/instagram.svg" alt="Instagram" /></a>
+    <a href="#"><img src="/icons/mail.svg" alt="Email" /></a>
+  </footer>
+  <style>
+    body {
+      /* Set the hero image as background with a dark overlay */
+      background: linear-gradient(rgba(30, 20, 10, 0.55), rgba(30, 20, 10, 0.55)), url('/images/hero-bg.jpg') center/cover no-repeat fixed;
+      min-height: 100vh;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem 1rem 3rem;
+      font-size: 1.2rem;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 2rem;
+      font-family: 'Georgia', serif;
+    }
+    .navbar nav a {
+      margin-left: 2rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .landing {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem 2rem;
+      min-height: 70vh;
+    }
+    .landing-content {
+      max-width: 50%;
+    }
+    .landing-content h1 {
+      font-size: 4.2rem;
+      font-family: 'Georgia', serif;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+    }
+    .landing-content p {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+    }
+    .cta-btn {
+      background: #b22222;
+      color: #fff;
+      padding: 1.2rem 2.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: bold;
+      transition: background 0.2s;
+      box-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+    }
+    .cta-btn:hover {
+      background: #8b1a1a;
+    }
+    .landing-image img {
+      width: 400px;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .footer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0 1rem 0;
+    }
+    .footer img {
+      width: 32px;
+      height: 32px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .footer img:hover {
+      opacity: 1;
+    }
+    @media (max-width: 900px) {
+      .landing {
+        flex-direction: column;
+        text-align: center;
+      }
+      .landing-content, .landing-image {
+        max-width: 100%;
+      }
+      .landing-image img {
+        width: 90vw;
+        margin-top: 2rem;
+      }
+      .landing-content h1 {
+        font-size: 2.2rem;
+      }
+      .landing-content p {
+        font-size: 1.1rem;
+      }
+      .cta-btn {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+      }
+    }
+  </style>
+</Layout>

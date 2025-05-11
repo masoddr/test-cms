@@ -1,0 +1,229 @@
+---
+import { themes } from '../data/themes';
+---
+
+<button class="theme-button" aria-label="Ouvrir le sélecteur de thèmes">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+</button>
+
+<div class="theme-modal" id="themeModal">
+  <div class="theme-modal__content">
+    <div class="theme-modal__header">
+      <h2>Choisir un thème</h2>
+      <button class="theme-modal__close" aria-label="Fermer">×</button>
+    </div>
+    <ul class="themeswitcher">
+      {themes.map((theme) => (
+        <li class="themeswitcher__item">
+          <button
+            class="themepicker__btn js-themepicker-themeselect"
+            data-theme={theme.id}
+            aria-label={`select color theme '${theme.name}'`}
+          >
+            <span class="themepicker__name">{theme.name}</span>
+            <span class="themepicker__palette">
+              <span class="themepicker__swatch themepicker__swatch--primary"></span>
+              <span class="themepicker__swatch themepicker__swatch--secondary"></span>
+              <span class="themepicker__swatch themepicker__swatch--border"></span>
+              <span class="themepicker__swatch themepicker__swatch--textoffset"></span>
+              <span class="themepicker__swatch themepicker__swatch--text"></span>
+            </span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .theme-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+
+  .theme-button:hover {
+    transform: scale(1.1);
+    background: var(--color-primary-offset);
+  }
+
+  .theme-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .theme-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .theme-modal__content {
+    position: relative;
+    background: var(--color-background);
+    margin: auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .theme-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .theme-modal__header h2 {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .theme-modal__close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+  }
+
+  .themeswitcher {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .themepicker__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: var(--color-background);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .themepicker__btn:hover {
+    background: var(--color-background-offset);
+    transform: translateY(-2px);
+  }
+
+  .themepicker__palette {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .themepicker__swatch {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-background);
+  }
+
+  .themepicker__swatch--primary {
+    background-color: var(--color-primary);
+  }
+
+  .themepicker__swatch--secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .themepicker__swatch--border {
+    background-color: var(--color-border);
+  }
+
+  .themepicker__swatch--textoffset {
+    background-color: var(--color-text-offset);
+  }
+
+  .themepicker__swatch--text {
+    background-color: var(--color-text);
+  }
+</style>
+
+<script>
+  // Get DOM elements
+  const themeButton = document.querySelector('.theme-button');
+  const themeModal = document.getElementById('themeModal');
+  const closeButton = document.querySelector('.theme-modal__close');
+  const themeButtons = document.querySelectorAll('.js-themepicker-themeselect');
+  
+  // Function to set theme
+  function setTheme(themeId: string) {
+    document.documentElement.setAttribute('data-theme', themeId);
+    localStorage.setItem('theme', themeId);
+  }
+
+  // Function to toggle modal
+  function toggleModal() {
+    themeModal?.classList.toggle('active');
+  }
+
+  // Add click event listeners
+  themeButton?.addEventListener('click', toggleModal);
+  closeButton?.addEventListener('click', toggleModal);
+
+  // Close modal when clicking outside
+  themeModal?.addEventListener('click', (e) => {
+    if (e.target === themeModal) {
+      toggleModal();
+    }
+  });
+
+  // Add click event listeners to all theme buttons
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const themeId = button.getAttribute('data-theme');
+      if (themeId) {
+        setTheme(themeId);
+        toggleModal(); // Close modal after theme selection
+      }
+    });
+  });
+
+  // Check for saved theme preference or system preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  }
+</script> 

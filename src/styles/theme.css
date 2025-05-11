@@ -1,0 +1,102 @@
+/* Base theme (light mode) */
+:root {
+  --color-primary: #2563eb;
+  --color-primary-offset: #1d4ed8;
+  --color-secondary: #059669;
+  --color-text: #1f2937;
+  --color-text-offset: #4b5563;
+  --color-border: #e5e7eb;
+  --color-background: #ffffff;
+  --color-background-offset: #f3f4f6;
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #3b82f6;
+    --color-primary-offset: #60a5fa;
+    --color-secondary: #10b981;
+    --color-text: #f3f4f6;
+    --color-text-offset: #9ca3af;
+    --color-border: #374151;
+    --color-background: #111827;
+    --color-background-offset: #1f2937;
+  }
+}
+
+/* Bowser's Castle theme */
+[data-theme="bowser"] {
+  --color-primary: #7f5af0;
+  --color-primary-offset: #e068fd;
+  --color-secondary: #2cb67d;
+  --color-text: #fffffe;
+  --color-text-offset: #94a1b2;
+  --color-border: #383a61;
+  --color-background: #16161a;
+  --color-background-offset: #29293e;
+}
+
+/* Neon Nights theme */
+[data-theme="neon"] {
+  --color-primary: #ff00ff;
+  --color-primary-offset: #ff66ff;
+  --color-secondary: #00ffff;
+  --color-text: #ffffff;
+  --color-text-offset: #cccccc;
+  --color-border: #ff00ff;
+  --color-background: #000000;
+  --color-background-offset: #1a1a1a;
+}
+
+/* Sunset Vibes theme */
+[data-theme="sunset"] {
+  --color-primary: #ff6b6b;
+  --color-primary-offset: #ff8787;
+  --color-secondary: #ffd93d;
+  --color-text: #2d3436;
+  --color-text-offset: #636e72;
+  --color-border: #ff9f43;
+  --color-background: #ffeaa7;
+  --color-background-offset: #fdcb6e;
+}
+
+/* Deep Ocean theme */
+[data-theme="ocean"] {
+  --color-primary: #00b894;
+  --color-primary-offset: #00d8a7;
+  --color-secondary: #0984e3;
+  --color-text: #dfe6e9;
+  --color-text-offset: #b2bec3;
+  --color-border: #00cec9;
+  --color-background: #2d3436;
+  --color-background-offset: #353b48;
+}
+
+/* Apply theme colors to elements */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+  color: var(--color-primary);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-primary-offset);
+}
+
+button {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-primary-offset);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+} 
